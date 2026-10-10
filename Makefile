@@ -4,6 +4,9 @@ CXXFLAGS = -Wall -g -Iinclude
 
 # SDL
 SDL_CFLAGS = $(shell sdl2-config --cflags)
+# -Dmain=SDL_main uniquement pour mainSDL.o (sinon JeuTXT n'a plus de main)
+SDL_INC = $(filter-out -Dmain=SDL_main,$(SDL_CFLAGS))
+$(OBJ_DIR)/mainSDL.o: SDL_INC = $(SDL_CFLAGS)
 SDL_LIBS = $(shell sdl2-config --libs) -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 # Dossiers
@@ -57,7 +60,7 @@ $(TARGET_SDL): $(OBJ_SDL) | $(BIN_DIR)
 
 # Compilation objets
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) $(SDL_CFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(SDL_INC) -c $< -o $@
 
 # Création dossiers
 $(OBJ_DIR):

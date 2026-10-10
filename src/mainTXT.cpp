@@ -5,7 +5,6 @@
 #include "Banque.h"
 #include "Carte.h"
 #include "JeuTXT.h" 
-#include "JeuSDL.h"
 #include <iostream>
 
 using namespace std;
